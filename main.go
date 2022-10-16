@@ -33,6 +33,7 @@ var app = tview.NewApplication()
 var flex = tview.NewFlex()
 var messageTable = tview.NewTable()
 var input = tview.NewInputField()
+var statusText = tview.NewTextView()
 
 var sm *socket_manager.SocketManager
 
@@ -44,6 +45,10 @@ func main() {
 	username := os.Args[1]
 	room := os.Args[2]
 
+	statusText.
+		SetText("Username: " + username + "; room: " + room).
+		SetBorder(true)
+
 	data := &TableData{}
 	messageTable.
 		SetBorders(false).
@@ -51,6 +56,7 @@ func main() {
 		SetContent(data)
 
 	flex.SetDirection(tview.FlexRow).
+		AddItem(statusText, 3, 1, false).
 		AddItem(messageTable, 0, 100, false).
 		AddItem(input, 0, 1, false)
 
